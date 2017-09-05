@@ -19,3 +19,23 @@ cxx_library(
         "PUBLIC",
     ],
 )
+
+cxx_binary(
+    name = "flatc",
+    srcs = glob(
+        [
+            "flatbuffers/src/*.cpp",
+            "flatbuffers/grpc/src/compiler/*.cc",
+        ],
+        excludes = [
+            "flatbuffers/src/flathash.cpp",
+        ],
+    ),
+    headers = subdir_glob(
+        [
+            ("flatbuffers/include", "flatbuffers/*.h"),
+            ("flatbuffers/grpc", "src/compiler/*.h"),
+        ],
+    ),
+    header_namespace = "",
+)
