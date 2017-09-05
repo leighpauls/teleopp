@@ -1,4 +1,4 @@
 [submodule "googletest"]
-  path = third-party/googletest
-  url = https://github.com/leighpauls/googletest.git
-  branch = release-1.8.0-branch
+	path = third-party/googletest
+	url = https://github.com/leighpauls/googletest.git
+	branch = release-1.8.0-branch
