@@ -2,3 +2,7 @@
 	path = third-party/googletest
 	url = https://github.com/leighpauls/googletest.git
 	branch = release-1.8.0-branch
+[submodule "flatbuffers"]
+	path = third-party/flatbuffers
+	url = https://github.com/leighpauls/flatbuffers.git
+	branch = v1.7.1-branch
