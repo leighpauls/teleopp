@@ -1,0 +1,8 @@
+cxx_library(
+    name = "teleopp",
+    srcs = glob(["*.cpp"]),
+    exported_headers = glob(["*.cpp"]),
+    header_namespace = "teleopp",
+    visibility = ["PUBLIC"],
+)
+

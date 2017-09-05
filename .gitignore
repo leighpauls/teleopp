@@ -1,0 +1,8 @@
+# General artifacts to ignore
+.buckd/
+buck-out/
+*~
+
+# I'm fairly sure I only need these files due to the corporate-configured build of buck on my FB work machine
+.nobuckcheck
+.buckversion
