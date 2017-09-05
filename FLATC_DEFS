@@ -1,0 +1,34 @@
+import re
+
+def flatbuffer_headers(name, srcs, header_namespace):
+    genrule(
+        name = name + "-compile",
+        srcs = srcs,
+        cmd = "$(exe //third-party:flatc) --cpp -o $OUT $SRCS",
+        out = "fbs")
+
+    def extract(src):
+        out = re.sub(r"(.*)\.fbs$", r"\1_generated.h", src)
+        rule = name + "-extract-" + out
+        genrule(
+            name = rule,
+            out = out,
+            cmd = "cp $(location :fbs-compile)/" + out + " $OUT",
+        )
+        return (out, ":" + rule)
+
+    exported_headers = {}
+    for src in srcs:
+        pair = extract(src)
+        exported_headers[pair[0]] = pair[1]
+
+    prebuilt_cxx_library(
+        name = name,
+        exported_headers = exported_headers,
+        header_namespace = header_namespace,
+        exported_deps = [
+            "//third-party:flatbuffers-includes",
+        ],
+        header_only = True,
+        visibility = ["PUBLIC"],
+    )

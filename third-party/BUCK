@@ -15,9 +15,20 @@ cxx_library(
         ("googletest/googletest", "src/**/*.cc"),
         ("googletest/googletest", "src/**/*.h"),
     ]),
-    visibility = [
-        "PUBLIC",
-    ],
+    visibility = ["PUBLIC"],
+)
+
+prebuilt_cxx_library(
+    name = "flatbuffers-includes",
+    exported_headers = subdir_glob(
+        [
+            ("flatbuffers/include", "flatbuffers/*.h"),
+            ("flatbuffers/grpc", "src/compiler/*.h"),
+        ],
+    ),
+    header_namespace = "",
+    header_only = True,
+    visibility = ["PUBLIC"],
 )
 
 cxx_binary(
@@ -31,11 +42,8 @@ cxx_binary(
             "flatbuffers/src/flathash.cpp",
         ],
     ),
-    headers = subdir_glob(
-        [
-            ("flatbuffers/include", "flatbuffers/*.h"),
-            ("flatbuffers/grpc", "src/compiler/*.h"),
-        ],
-    ),
-    header_namespace = "",
+    deps = [
+        ':flatbuffers-includes',
+    ],
+    visibility = ["PUBLIC"],
 )

@@ -1,0 +1,6 @@
+include_defs("//FLATC_DEFS")
+
+flatbuffer_headers(
+    name = "fbs",
+    srcs = glob(["*.fbs"]),
+    header_namespace = "teleopp_fbs")

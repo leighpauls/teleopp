@@ -1,0 +1,18 @@
+
+namespace teleopp;
+
+struct VersionTuple {
+  controllerVersion: ulong;
+  controllerVersionTimeMs: ulong;
+
+  robotVersion: ulong;
+  robotVersionTimeMs: ulong;
+}
+
+table ControllerToRobotPayload {
+  newControlDocument: [ubyte];
+  newControlDocumentVersion: VersionTuple;
+}
+
+
+root_type ControllerToRobotPayload;
