@@ -1,0 +1,21 @@
+cxx_library(
+    name = "gtest",
+    srcs = [
+        "googletest/googletest/src/gtest-all.cc",
+        "googletest/googletest/src/gtest_main.cc",
+    ],
+    exported_headers = subdir_glob([
+        ("googletest/googletest/include", "**/*.h"),
+    ]),
+    header_namespace = "",
+    linker_flags = [
+        "-lpthread",
+    ],
+    headers = subdir_glob([
+        ("googletest/googletest", "src/**/*.cc"),
+        ("googletest/googletest", "src/**/*.h"),
+    ]),
+    visibility = [
+        "PUBLIC",
+    ],
+)

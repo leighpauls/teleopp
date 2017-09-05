@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <string>
+#include <chrono>
 
 namespace teleopp {
 
@@ -18,5 +19,8 @@ enum class RobotOverrideReason {
   TOO_LONG_SINCE_CONTROLLER_SIGNAL,
   TOO_LONG_SINCE_ROBOT_TICK,
 };
+
+using Millis = std::chrono::milliseconds;
+using Time = std::chrono::time_point<std::chrono::steady_clock, Millis>;
 
 } // namespace teleopp

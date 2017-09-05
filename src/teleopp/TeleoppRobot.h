@@ -27,9 +27,6 @@ struct RobotTickAction {
   std::set<RobotOverrideReason> overrideReasons;
 };
 
-using Millis = std::chrono::milliseconds;
-using Time = std::chrono::time_point<std::chrono::steady_clock, Millis>;
-
 class TeleoppRobot {
  public:
   TeleoppRobot(Millis nominalTickDuration,
