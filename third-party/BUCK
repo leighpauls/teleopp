@@ -18,6 +18,26 @@ cxx_library(
     visibility = ["PUBLIC"],
 )
 
+cxx_library(
+    name = "gmock",
+    srcs = [
+        "googletest/googlemock/src/gmock-all.cc",
+        "googletest/googlemock/src/gmock_main.cc",
+    ],
+    exported_headers = subdir_glob([
+        ("googletest/googlemock/include", "**/*.h"),
+    ]),
+    header_namespace = "",
+    headers = subdir_glob([
+        ("googletest/googlemock", "src/**/*.cc"),
+        ("googletest/googlemock", "src/**/*.h"),
+    ]),
+    deps = [
+        ":gtest",
+    ],
+    visibility = ["PUBLIC"],
+)
+
 prebuilt_cxx_library(
     name = "flatbuffers-includes",
     exported_headers = subdir_glob(

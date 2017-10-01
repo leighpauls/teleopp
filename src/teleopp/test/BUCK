@@ -6,5 +6,6 @@ cxx_test(
         "//src/teleopp:teleopp",
         "//src/teleopp/fbs:fbs",
         "//third-party:gtest",
+        "//third-party:gmock",
     ],
 )

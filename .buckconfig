@@ -1,2 +1,2 @@
 [cxx]
-    cxxflags = -std=c++14 -fexceptions -frtti -fPIC
+    cxxflags = -std=c++1z -fexceptions -frtti -fPIC
