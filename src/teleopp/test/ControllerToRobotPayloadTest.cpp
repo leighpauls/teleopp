@@ -3,6 +3,7 @@
 #include <gtest/gtest.h>
 
 #include <teleopp/ControllerToRobotPayload.h>
+#include <teleopp/RobotToControllerAck.h>
 #include <teleopp_fbs/Teleopp_generated.h>
 
 #include <chrono>
@@ -33,5 +34,17 @@ TEST(ControllerToRobotPayloadTest, writeRead) {
   EXPECT_EQ(controllerVersion, controller_to_robot::controllerVersion(payload));
   EXPECT_EQ(controllerVersionTime, controller_to_robot::controllerVersionTime(payload));
   EXPECT_EQ(basisRobotVersion, controller_to_robot::basisRobotVersion(payload));
+}
+
+TEST(ControllerToRobotPayloadTest, rejectInvalid) {
+  EXPECT_ANY_THROW(
+      { controller_to_robot::controllerVersion(std::make_shared<NetPayload>("poop")); });
+}
+
+TEST(ControllerToRobotPayloadTest, rejectWrongMessageType) {
+  EXPECT_ANY_THROW({
+    controller_to_robot::controllerVersion(
+        std::make_shared<NetPayload>(robot_to_controller_ack::build(123, 456)));
+  });
 }
 } // namespace

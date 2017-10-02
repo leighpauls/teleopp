@@ -13,4 +13,18 @@ table ControllerToRobotPayload {
   basisRobotVersion: ulong;
 }
 
-root_type ControllerToRobotPayload;
+table RobotToControllerAck {
+  controllerVersion: ulong;
+  robotVersion: ulong;
+}
+
+union TeleoppUnion {
+  ControllerToRobotPayload,
+  RobotToControllerAck,
+}
+
+table TeleoppMessage {
+  teleoppUnion: TeleoppUnion;
+}
+
+root_type TeleoppMessage;
