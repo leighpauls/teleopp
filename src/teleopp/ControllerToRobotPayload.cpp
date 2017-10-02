@@ -20,7 +20,16 @@ NetPayload controller_to_robot::build(DocumentPtr document,
 }
 
 namespace {
-auto asFlatbuffer(NetPayloadPtr payload) { return GetControllerToRobotPayload(payload->data()); }
+auto asFlatbuffer(NetPayloadPtr payload) {
+  {
+    flatbuffers::Verifier verifier(reinterpret_cast<const uint8_t*>(payload->data()),
+                                   payload->size());
+    if (!VerifyControllerToRobotPayloadBuffer(verifier)) {
+      throw std::runtime_error("Invalid ControllerToRobotPayload");
+    }
+  }
+  return GetControllerToRobotPayload(payload->data());
+}
 } // namespace
 
 DocumentPtr controller_to_robot::copyDocument(NetPayloadPtr payload) {

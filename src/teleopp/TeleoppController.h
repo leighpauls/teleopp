@@ -2,8 +2,9 @@
 
 #include "CommonTypes.h"
 
-#include <set>
+#include <deque>
 #include <experimental/optional>
+#include <set>
 
 namespace teleopp {
 
@@ -12,14 +13,24 @@ namespace teleopp {
  */
 struct RobotPastState {
   /**
-   * The most recent control document we know the robot has been using.
+   * The most recent control document we know the robot used at some point.
    */
-  DocumentPtr latestRobotDocument;
+  DocumentPtr document;
 
   /**
-   * The document was in effect no longer ago that than this
+   * We can't know for sure at what controller time the docuemnt was in effect, but we can
+   * establishthe lower (oldest) bound that it could have been in effect.
    */
-  Time minimumTimeOfLatestRobotDocument;
+  Time lowerBoundControllerTime;
+  uint64_t controllerVersion;
+  uint64_t robotVersion;
+};
+
+struct ControllerHistoryElement {
+  DocumentPtr document;
+  Time controllerTime;
+  uint64_t controllerVersion;
+  uint64_t basisRobotVersion;
 };
 
 struct ControllerState {
@@ -32,7 +43,7 @@ struct ControllerState {
    * Most recent info on what the robot is doing. has_value = false if we've never head from the
    * robot.
    */
-  std::experimental::optional<RobotPastState> robotPastState;
+  std::experimental::optional<RobotPastState> knownRobotState;
 
   /**
    * If this is non-empty, the robot thinks your controller has lost control, and
@@ -68,9 +79,7 @@ class TeleoppController {
    * Call this at least once every nominalTickDuration milliseconds, but you may call it more often
    * if needed.
    */
-  virtual ControllerTickAction tick(Time now, Document document) {
-    throw std::runtime_error("not implemented");
-  }
+  virtual ControllerTickAction tick(Time now, Document document);
 
   /**
    * Call this when we receive network traffic from the robot.
@@ -80,6 +89,6 @@ class TeleoppController {
   }
 
  private:
-  DocumentPtr documentToSend_;
+  std::deque<ControllerHistoryElement> controllerDocumentHistory_;
 };
 } // namespace teleopp
