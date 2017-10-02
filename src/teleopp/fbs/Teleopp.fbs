@@ -1,18 +1,16 @@
 
 namespace teleopp;
 
-struct VersionTuple {
-  controllerVersion: ulong;
-  controllerVersionTimeMs: ulong;
-
-  robotVersion: ulong;
-  robotVersionTimeMs: ulong;
-}
-
 table ControllerToRobotPayload {
   newControlDocument: [ubyte];
-  newControlDocumentVersion: VersionTuple;
-}
 
+  // The controller version of newControlDocument
+  controllerVersion: ulong;
+  // The controller time when newControlDocument was created
+  controllerVersionTimeMs: ulong;
+
+  // The newest robot version which the controller knew about when it created newControlDocument
+  basisRobotVersion: ulong;
+}
 
 root_type ControllerToRobotPayload;

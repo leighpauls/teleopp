@@ -3,6 +3,9 @@ cxx_library(
     srcs = glob(["*.cpp"]),
     exported_headers = glob(["*.h"]),
     header_namespace = "teleopp",
+    deps = [
+        "//src/teleopp/fbs:fbs",
+    ],
     visibility = ["PUBLIC"],
 )
 

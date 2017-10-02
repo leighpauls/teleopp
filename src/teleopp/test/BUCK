@@ -4,7 +4,6 @@ cxx_test(
     headers = glob(["*.h"]),
     deps = [
         "//src/teleopp:teleopp",
-        "//src/teleopp/fbs:fbs",
         "//third-party:gtest",
         "//third-party:gmock",
     ],

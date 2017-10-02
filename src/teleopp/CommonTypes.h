@@ -1,8 +1,8 @@
 #pragma once
 
+#include <chrono>
 #include <memory>
 #include <string>
-#include <chrono>
 
 namespace teleopp {
 
@@ -22,5 +22,4 @@ enum class RobotOverrideReason {
 
 using Millis = std::chrono::milliseconds;
 using Time = std::chrono::time_point<std::chrono::steady_clock, Millis>;
-
 } // namespace teleopp
