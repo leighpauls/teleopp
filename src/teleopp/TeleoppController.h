@@ -84,11 +84,11 @@ class TeleoppController {
   /**
    * Call this when we receive network traffic from the robot.
    */
-  virtual void onRobotNetPayload(NetPayloadPtr payload) {
-    throw std::runtime_error("not implemented");
-  }
+  virtual void onRobotNetPayload(NetPayloadPtr payload);
 
  private:
   std::deque<ControllerHistoryElement> controllerDocumentHistory_;
+  std::experimental::optional<RobotPastState> knownRobotState_;
+  std::set<RobotOverrideReason> overrideReasons_;
 };
 } // namespace teleopp
